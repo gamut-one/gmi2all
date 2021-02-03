@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-__version__ = "0.0.1"
+__version__ = "0.0.2"
 
 import sys
 import logging
@@ -46,7 +46,8 @@ def to_html(fobj, args):
             line = line[2:].strip()
             res = line.split(' ')
             if len(res) > 1:
-                buffer += f'<p><a href="{res[0]}">{res[1]}</a></p>\n'
+                name = ' '.join(res[1:])
+                buffer += f'<p><a href="{res[0]}">{name}</a></p>\n'
             else:
                 buffer += f'<p><a href="{res[0]}">{res[0]}</a></p>\n'
         elif line.startswith('*'):
@@ -100,7 +101,8 @@ def to_gophermap(fobj, args):
                 buffer += f'1{res[1]}\t{path}\t{o.hostname}\t{port}\n'
             else:
                 if len(res) > 1:
-                    buffer += f'h{res[1]}\tURL:{res[0]}\tnull.host\t70\n'
+                    name = ' '.join(res[1:])
+                    buffer += f'h{name}\tURL:{res[0]}\tnull.host\t70\n'
                 else:
                     buffer += f'h{res[0]}\tURL:{res[0]}\tnull.host\t70\n'
         elif line.startswith('*'):
