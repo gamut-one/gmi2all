@@ -12,7 +12,7 @@ import urllib.parse
 
 
 def to_html(fobj, args):
-    buffer = '<html><head>\n'
+    buffer = '<html><head>\n<meta charset="UTF-8">'
     if args.stylesheet:
         if isinstance(args.stylesheet, str):
             stylesheet = [args.stylesheet]
@@ -85,11 +85,11 @@ def to_gophermap(fobj, args):
                 preform = True
                 continue
         elif line.startswith('###'):
-            buffer += f'<h3>{line[3:].strip()}</h3>\n'
+            buffer += f'{line[3:].strip()}\n' + ('-' * len(line[3:].strip())) + '\n'
         elif line.startswith('##'):
-            buffer += f'<h2>{line[2:].strip()}</h2>\n'
+            buffer += f'{line[2:].strip()}\n' + ('-' * len(line[3:].strip())) + '\n'
         elif line.startswith('#'):
-            buffer += f'<h1>{line[1:].strip()}</h1>\n'
+            buffer += f'{line[1:].strip()}\n' + ('=' * len(line[3:].strip())) + '\n'
         elif line.startswith('=>'):
             line = line[2:].strip()
             res = line.split(' ')
@@ -159,11 +159,11 @@ def main():
         logging.error(f'Unknown format {args.format}')
         return 1
 
-    with open(input_filename) as ifobj:
+    with open(input_filename, encoding='utf-8') as ifobj:
         formatted = FORMATS[args.format](ifobj, args)
 
     if args.output:
-        with open(args.output) as ofobj:
+        with open(args.output, 'w', encoding='utf-8') as ofobj:
             ofobj.write(formatted)
     else:
         sys.stdout.write(formatted)
