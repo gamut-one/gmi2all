@@ -85,11 +85,11 @@ def to_gophermap(fobj, args):
                 preform = True
                 continue
         elif line.startswith('###'):
-            buffer += f'{line[3:].strip()}\n' + ('-' * len(line[3:].strip())) + '\n'
+            buffer += f'{line[3:].strip()}\n' + 'i' + ('-' * len(line[3:].strip())) + '\t/\n'
         elif line.startswith('##'):
-            buffer += f'{line[2:].strip()}\n' + ('-' * len(line[3:].strip())) + '\n'
+            buffer += f'{line[2:].strip()}\n' + 'i' + ('-' * len(line[3:].strip())) + '\t/\n'
         elif line.startswith('#'):
-            buffer += f'{line[1:].strip()}\n' + ('=' * len(line[3:].strip())) + '\n'
+            buffer += f'{line[1:].strip()}\n' + 'i' + ('-' * len(line[3:].strip())) + '\t/\n'
         elif line.startswith('=>'):
             line = line[2:].strip()
             res = line.split(' ')
